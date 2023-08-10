@@ -1,0 +1,7 @@
+.post {
+  display: flex;
+}
+
+.post p {
+  margin-right: 20px;
+}

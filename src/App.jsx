@@ -1,7 +1,38 @@
-import { useState } from "react";
+import { react, useState, useEffect } from "react";
+//add api functions here when importing
+import { fetchAllPosts } from "./api";
+import Post from "./components/Post";
 
-function App() {
-  return;
+export default function App() {
+  const [posts, setPosts] = useState([]);
+
+  /* fetch posts using api file function fetchAllPosts*/
+  useEffect(() => {
+    const getAllPosts = async () => {
+      try {
+        const result = await fetchAllPosts();
+        setPosts(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getAllPosts();
+  }, []);
+
+  return (
+    <div className="post-container">
+      {/* loops through each post object and displays its data in Post.jsx component */}
+      {posts.map((post) => {
+        return (
+          <Post
+            key={post._id}
+            username={post.author.username}
+            title={post.title}
+            description={post.description}
+            price={post.price}
+          />
+        );
+      })}
+    </div>
+  );
 }
-
-export default App;
