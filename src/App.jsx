@@ -23,14 +23,14 @@ export default function App() {
   return (
     <div>
       <nav className="navBar">
-        {/* <Link to="/">Home</Link>
+        <Link to="/">Home</Link>
         <Link to="/posts">Posts</Link>
-        <Link to="/profile">Profile</Link> */}
+        <Link to="/profile">Profile</Link>
         <Link to="/register">Register</Link>
       </nav>
       <h1>test</h1>
       <Routes>
-        <Route path="/posts" element={<Posts />} />
+        <Route path="/posts" element={<Posts posts={posts} />} />
         <Route path="/register" element={<AccountForm />} />
       </Routes>
     </div>
