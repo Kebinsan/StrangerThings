@@ -15,4 +15,30 @@ export const fetchAllPosts = async () => {
   }
 };
 
+/**
+ * It fetches all posts from the API and returns them
+ * @returns An array of objects.
+ */
+export const registerUser = async (username, password) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: {
+          username,
+          password,
+        },
+      }),
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 //Add additional API functions here

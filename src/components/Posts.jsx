@@ -1,22 +1,7 @@
-import { React, useEffect, useState } from "react";
-import { fetchAllPosts } from "../api";
+import { React } from "react";
 import Post from "./Post";
 
-export default function Posts() {
-  const [posts, setPosts] = useState([]);
-
-  /* fetch posts using api file function fetchAllPosts*/
-  useEffect(() => {
-    const getAllPosts = async () => {
-      try {
-        const result = await fetchAllPosts();
-        setPosts(result);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getAllPosts();
-  }, []);
+export default function Posts({ posts }) {
   return (
     <div className="post-container">
       {/* loops through each post object and displays its data in Post.jsx component */}
