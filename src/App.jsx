@@ -1,10 +1,12 @@
 import { react, useState, useEffect } from "react";
-import { fetchAllPosts } from "./api";
-//add api functions here when importing
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
+//import components
 import AccountForm from "./components/AccountForm";
 import Posts from "./components/Posts";
 import Profile from "./components/Profile";
+import Home from "./components/Home";
+//import api functions
+import { fetchAllPosts } from "./api";
 import { myData } from "./api";
 
 export default function App() {
@@ -13,6 +15,7 @@ export default function App() {
     window.localStorage.getItem("token") || null
   );
   const [userData, setUserData] = useState([]);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   /**
@@ -60,6 +63,7 @@ export default function App() {
   const logOut = () => {
     setToken(null);
     navigate("/");
+    setMessage("Successfully logged out");
   };
 
   /**
@@ -72,16 +76,16 @@ export default function App() {
   return (
     <div>
       <nav className="navBar">
-        <Link className="left item" to="/">
+        <Link className="item left" to="/">
           Home
         </Link>
-        <Link className="left item" to="/posts">
+        <Link className="item left" to="/posts">
           Posts
         </Link>
         <div className="right-menu">
           {token ? (
             <>
-              <Link className="profile item" to="/account/profile">
+              <Link className="item profile" to="/account/profile">
                 Profile
               </Link>
               <button className="item logout btn" onClick={logOut}>
@@ -101,10 +105,11 @@ export default function App() {
         </div>
       </nav>
       <Routes>
-        <Route path="/posts" element={<Posts posts={posts} />} />
+        <Route path="/" element={<Home message={message} />} />
+        <Route path="/posts" element={<Posts posts={posts} token={token} />} />
         <Route
           path="/account/:action"
-          element={<AccountForm setToken={setToken} />}
+          element={<AccountForm setToken={setToken} setMessage={setMessage} />}
         />
         <Route
           path="/account/profile"
