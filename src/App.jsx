@@ -1,4 +1,4 @@
-import { react, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 //import components
 import AccountForm from "./components/AccountForm";
@@ -6,8 +6,7 @@ import Posts from "./components/Posts";
 import Profile from "./components/Profile";
 import Home from "./components/Home";
 //import api functions
-import { fetchAllPosts } from "./api";
-import { myData } from "./api";
+import { fetchAllPosts, myData } from "./api";
 
 export default function App() {
   const [posts, setPosts] = useState([]);

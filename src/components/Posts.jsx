@@ -1,4 +1,3 @@
-import { React } from "react";
 import Post from "./Post";
 import NewPost from "./NewPost";
 
@@ -8,7 +7,7 @@ export default function Posts({ posts, token }) {
       <div className="new-post-container">
         {token && (
           <>
-            <NewPost />
+            <NewPost token={token} />
           </>
         )}
       </div>
