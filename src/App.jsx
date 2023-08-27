@@ -37,30 +37,42 @@ export default function App() {
     navigate("/");
   };
 
+  const logIn = () => {
+    navigate("/account/login");
+  };
+
   return (
     <div>
       <nav className="navBar">
-        <Link to="/">Home</Link>
-        <Link to="/posts">Posts</Link>
-        <Link to="/profile">Profile</Link>
-        <div className="right menu">
+        <Link className="left item" to="/">
+          Home
+        </Link>
+        <Link className="left item" to="/posts">
+          Posts
+        </Link>
+        <div className="right-menu">
           {token ? (
-            <button className="item" onClick={logOut}>
-              Log Out
-            </button>
+            <>
+              <Link className="profile item" to="/profile">
+                Profile
+              </Link>
+              <button className="item logout btn" onClick={logOut}>
+                Log Out
+              </button>
+            </>
           ) : (
             <>
-              <Link className="item" to="/account/login">
+              <button className="item login btn" onClick={logIn}>
                 Login
-              </Link>
-              <Link className="item" to="/account/register">
+              </button>
+              <Link className="item signup" to="/account/register">
                 Sign up
               </Link>
             </>
           )}
         </div>
       </nav>
-      <h1>test</h1>
+      <h1>All Posts</h1>
       <Routes>
         <Route path="/posts" element={<Posts posts={posts} />} />
         <Route

@@ -1,3 +1,74 @@
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  background-color: #e6e6e6;
+  font-family: "proxima-nova", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.btn {
+  padding: 9px 20px !important;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+/*NAVBAR STYLING*/
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: #0f5454;
+  font-family: "proxima-nova", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.5em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.item {
+  margin-left: 20px;
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+.right-menu {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login {
+  background-color: #85ffc7;
+  font-size: 0.8em;
+  color: black;
+}
+
+.logout {
+  background-color: #cc3227;
+  font-size: 0.8em;
+}
+
+.signup {
+  font-family: "proxima-nova", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: underline;
+  font-size: 0.7em;
+  padding: 8px 8px;
+}
+
+.left,
+.profile {
+  padding: 4px 4px;
+}
+
+/*POST STYLING*/
 .post {
   display: flex;
 }
