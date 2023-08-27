@@ -73,6 +73,30 @@ export const loginUser = async (username, password) => {
 };
 
 /**
+ * POST new post
+ * @param {*} post
+ * @param {*} token
+ * @returns new post object
+ */
+export const addNewPost = async (post, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ post }),
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+/**
  * FETCH USER DATA
  * @param {*} token
  * @returns array of user data
