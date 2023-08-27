@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { registerUser, loginUser } from "../api";
+import Home from "./Home";
 
-const AccountForm = ({ setToken }) => {
+const AccountForm = ({ setToken, setMessage }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-
   const { action } = useParams();
-
   const title = action === "login" ? "Login In" : "Sign Up";
+  const Navigate = useNavigate();
 
   const onSubmitHandler = async () => {
     event.preventDefault();
@@ -22,13 +22,14 @@ const AccountForm = ({ setToken }) => {
     if (data.success) {
       setToken(data.data.token);
       setMessage(data.data.message);
+      Navigate("/");
     } else {
       setMessage(data.error.message);
     }
   };
 
   return (
-    <div>
+    <>
       <form onSubmit={onSubmitHandler}>
         <h1>{title}</h1>
         <div>
@@ -53,8 +54,7 @@ const AccountForm = ({ setToken }) => {
         </div>
         <button type="submit">submit</button>
       </form>
-      {message ? <div>{message}</div> : <div></div>}
-    </div>
+    </>
   );
 };
 

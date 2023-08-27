@@ -1,22 +1,31 @@
 import { react, useState, useEffect } from "react";
-import { fetchAllPosts } from "./api";
-//add api functions here when importing
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
+//import components
 import AccountForm from "./components/AccountForm";
 import Posts from "./components/Posts";
+import Profile from "./components/Profile";
+import Home from "./components/Home";
+//import api functions
+import { fetchAllPosts } from "./api";
+import { myData } from "./api";
 
 export default function App() {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || null
   );
+  const [userData, setUserData] = useState([]);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  /* fetch posts using api file function fetchAllPosts*/
+  /**
+   * fetches all posts
+   */
   useEffect(() => {
     const getAllPosts = async () => {
       try {
         const result = await fetchAllPosts();
+        console.log(result);
         setPosts(result);
       } catch (error) {
         console.error(error);
@@ -24,6 +33,10 @@ export default function App() {
     };
     getAllPosts();
   }, []);
+
+  /**
+   * sets token in local storage
+   */
   useEffect(() => {
     if (token) {
       window.localStorage.setItem("token", token);
@@ -32,11 +45,30 @@ export default function App() {
     }
   }, [token]);
 
+  /**
+   * fetches user data
+   */
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const result = await myData(token);
+      console.log(result);
+      setUserData(result);
+    };
+    fetchUserData();
+  }, [token]);
+
+  /**
+   * resets token when logging out
+   */
   const logOut = () => {
     setToken(null);
     navigate("/");
+    setMessage("Successfully logged out");
   };
 
+  /**
+   * login button handler, navigates to log
+   */
   const logIn = () => {
     navigate("/account/login");
   };
@@ -44,16 +76,16 @@ export default function App() {
   return (
     <div>
       <nav className="navBar">
-        <Link className="left item" to="/">
+        <Link className="item left" to="/">
           Home
         </Link>
-        <Link className="left item" to="/posts">
+        <Link className="item left" to="/posts">
           Posts
         </Link>
         <div className="right-menu">
           {token ? (
             <>
-              <Link className="profile item" to="/profile">
+              <Link className="item profile" to="/account/profile">
                 Profile
               </Link>
               <button className="item logout btn" onClick={logOut}>
@@ -72,12 +104,16 @@ export default function App() {
           )}
         </div>
       </nav>
-      <h1>All Posts</h1>
       <Routes>
-        <Route path="/posts" element={<Posts posts={posts} />} />
+        <Route path="/" element={<Home message={message} />} />
+        <Route path="/posts" element={<Posts posts={posts} token={token} />} />
         <Route
           path="/account/:action"
-          element={<AccountForm setToken={setToken} />}
+          element={<AccountForm setToken={setToken} setMessage={setMessage} />}
+        />
+        <Route
+          path="/account/profile"
+          element={<Profile userData={userData} />}
         />
       </Routes>
     </div>

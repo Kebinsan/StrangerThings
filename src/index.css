@@ -16,7 +16,10 @@ body {
   border: none;
   cursor: pointer;
 }
-/*NAVBAR STYLING*/
+
+/**
+  * NAVBAR STYLING
+  */
 nav {
   display: flex;
   flex-direction: row;
@@ -68,7 +71,9 @@ nav {
   padding: 4px 4px;
 }
 
-/*POST STYLING*/
+/**
+  * POST STYLING
+  */
 .post {
   display: flex;
 }

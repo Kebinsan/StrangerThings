@@ -2,13 +2,14 @@ const COHORT_NAME = "2302-ACC-ET-WEB-PT-B";
 const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
 /**
- * It fetches all posts from the API and returns them
- * @returns An array of objects.
+ * FETCH ALL POSTS
+ * @returns array of post objects
  */
 export const fetchAllPosts = async () => {
   try {
     const response = await fetch(`${BASE_URL}/posts`);
     const result = await response.json();
+    console.log(result.data.posts);
     return result.data.posts;
   } catch (err) {
     console.error("Error /GET all posts!", err);
@@ -16,8 +17,10 @@ export const fetchAllPosts = async () => {
 };
 
 /**
- * It fetches all posts from the API and returns them
- * @returns An array of objects.
+ * REGISTER USER
+ * @param {*} username
+ * @param {*} password
+ * @returns new user object
  */
 export const registerUser = async (username, password) => {
   try {
@@ -40,6 +43,13 @@ export const registerUser = async (username, password) => {
     console.error(err);
   }
 };
+
+/**
+ * LOG-IN USER
+ * @param {*} username
+ * @param {*} password
+ * @returns user object
+ */
 export const loginUser = async (username, password) => {
   try {
     const response = await fetch(`${BASE_URL}/users/login`, {
@@ -62,4 +72,24 @@ export const loginUser = async (username, password) => {
   }
 };
 
+/**
+ * FETCH USER DATA
+ * @param {*} token
+ * @returns array of user data
+ */
+export const myData = async (token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+};
 //Add additional API functions here
