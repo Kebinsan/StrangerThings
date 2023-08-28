@@ -72,6 +72,15 @@ export default function App() {
     navigate("/account/login");
   };
 
+  // const removePost = async (token, id) => {
+  //   try {
+  //     const result = await deletePost(token, id);
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   return (
     <div>
       <nav className="navBar">
@@ -105,7 +114,10 @@ export default function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Home message={message} />} />
-        <Route path="/posts" element={<Posts posts={posts} token={token} />} />
+        <Route
+          path="/posts"
+          element={<Posts posts={posts} token={token} userData={userData} />}
+        />
         <Route
           path="/account/:action"
           element={<AccountForm setToken={setToken} setMessage={setMessage} />}

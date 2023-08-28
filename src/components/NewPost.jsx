@@ -22,6 +22,7 @@ export default function NewPost({ token }) {
       token
     );
     console.log(postNewPost);
+    window.location.reload();
   };
 
   return (

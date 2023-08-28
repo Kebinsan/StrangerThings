@@ -1,7 +1,7 @@
 import Post from "./Post";
 import NewPost from "./NewPost";
 
-export default function Posts({ posts, token }) {
+export default function Posts({ posts, token, userData }) {
   return (
     <>
       <div className="new-post-container">
@@ -22,6 +22,8 @@ export default function Posts({ posts, token }) {
               title={post.title}
               description={post.description}
               price={post.price}
+              userData={userData}
+              // removePost={removePost}
             />
           );
         })}
