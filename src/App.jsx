@@ -6,7 +6,7 @@ import Posts from "./components/Posts";
 import Profile from "./components/Profile";
 import Home from "./components/Home";
 //import api functions
-import { fetchAllPosts, myData } from "./api";
+import { fetchAllPosts, myData, deletePost } from "./api";
 
 export default function App() {
   const [posts, setPosts] = useState([]);
@@ -23,7 +23,7 @@ export default function App() {
   useEffect(() => {
     const getAllPosts = async () => {
       try {
-        const result = await fetchAllPosts();
+        const result = await fetchAllPosts(token);
         console.log(result);
         setPosts(result);
       } catch (error) {
@@ -72,14 +72,17 @@ export default function App() {
     navigate("/account/login");
   };
 
-  // const removePost = async (token, id) => {
-  //   try {
-  //     const result = await deletePost(token, id);
-  //     console.log(result);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const removePost = async (token, id) => {
+    try {
+      const result = await deletePost(token, id);
+      console.log(result);
+      setPosts((previousPost) =>
+        previousPost.filter((post) => post._id !== id)
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -116,7 +119,15 @@ export default function App() {
         <Route path="/" element={<Home message={message} />} />
         <Route
           path="/posts"
-          element={<Posts posts={posts} token={token} userData={userData} />}
+          element={
+            <Posts
+              posts={posts}
+              token={token}
+              userData={userData}
+              removePost={removePost}
+              setPosts={setPosts}
+            />
+          }
         />
         <Route
           path="/account/:action"

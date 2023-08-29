@@ -10,7 +10,7 @@ const AccountForm = ({ setToken, setMessage }) => {
   const title = action === "login" ? "Login In" : "Sign Up";
   const Navigate = useNavigate();
 
-  const onSubmitHandler = async () => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
 
     const authFn = action === "register" ? registerUser : loginUser;
