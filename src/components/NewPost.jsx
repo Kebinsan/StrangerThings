@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { addNewPost } from "../api";
 
-export default function NewPost({ token }) {
+export default function NewPost({ token, setPosts }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -21,7 +21,8 @@ export default function NewPost({ token }) {
       },
       token
     );
-    console.log(postNewPost);
+    console.log(postNewPost, "New");
+    setPosts((previousPost) => [postNewPost, ...previousPost]);
   };
 
   return (
