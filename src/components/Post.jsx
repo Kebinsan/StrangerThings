@@ -1,35 +1,27 @@
-import React from "react";
-
-export default function Post({
-  username,
-  title,
-  description,
-  userData,
-  token,
-  id,
-  removePost,
-}) {
+export default function Post({ token, post, removePost }) {
   // console.log(username, userData);
   return (
     <div className="post">
-      <p className="user">{username}</p>
+      <p className="user">{post.author.username}</p>
       <p>
         {" "}
         <b>Item: </b>
-        {title}
+        {post.title}
       </p>
-      <p className="description">{description}</p>
-      {username === userData.data?.username ? (
-        <button
-          onClick={() => {
-            removePost(token, id);
-          }}
-        >
-          remove
-        </button>
-      ) : (
-        <button>Send Message</button>
-      )}
+      <p className="description">{post.description}</p>
+
+      {token &&
+        (post.isAuthor ? (
+          <button
+            onClick={() => {
+              removePost(token, post._id);
+            }}
+          >
+            remove
+          </button>
+        ) : (
+          <button>Send Message</button>
+        ))}
     </div>
   );
 }

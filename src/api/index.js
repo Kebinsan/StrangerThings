@@ -15,7 +15,6 @@ export const fetchAllPosts = async (token) => {
     });
 
     const result = await response.json();
-    console.log(result.data.posts);
     return result.data.posts;
   } catch (err) {
     console.error("Error /GET all posts!", err);
@@ -43,7 +42,6 @@ export const registerUser = async (username, password) => {
       }),
     });
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (err) {
     console.error(err);
@@ -71,7 +69,6 @@ export const loginUser = async (username, password) => {
       }),
     });
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (err) {
     console.error(err);
@@ -95,7 +92,6 @@ export const addNewPost = async (post, token) => {
       body: JSON.stringify({ post }),
     });
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (err) {
     console.log(err);
@@ -116,7 +112,6 @@ export const myData = async (token) => {
       },
     });
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (err) {
     console.log(err);
@@ -134,7 +129,6 @@ export const deletePost = async (token, id) => {
       },
     });
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (err) {
     console.error(err);

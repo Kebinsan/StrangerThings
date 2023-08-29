@@ -17,6 +17,7 @@ export default function App() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
+  console.log(posts);
   /**
    * fetches all posts
    */
@@ -24,7 +25,6 @@ export default function App() {
     const getAllPosts = async () => {
       try {
         const result = await fetchAllPosts(token);
-        console.log(result);
         setPosts(result);
       } catch (error) {
         console.error(error);
@@ -50,7 +50,6 @@ export default function App() {
   useEffect(() => {
     const fetchUserData = async () => {
       const result = await myData(token);
-      console.log(result);
       setUserData(result);
     };
     fetchUserData();
@@ -75,7 +74,6 @@ export default function App() {
   const removePost = async (token, id) => {
     try {
       const result = await deletePost(token, id);
-      console.log(result);
       setPosts((previousPost) =>
         previousPost.filter((post) => post._id !== id)
       );
