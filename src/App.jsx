@@ -10,6 +10,7 @@ import { fetchAllPosts, myData, deletePost } from "./api";
 
 export default function App() {
   const [posts, setPosts] = useState([]);
+  const [isNewPost, setIsNewPost] = useState(false);
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || null
   );
@@ -24,14 +25,16 @@ export default function App() {
     const getAllPosts = async () => {
       try {
         const result = await fetchAllPosts(token);
-        console.log(result);
-        setPosts(result);
+        if (isNewPost || !posts.length) {
+          setPosts(result);
+          setIsNewPost(false);
+        }
       } catch (error) {
         console.error(error);
       }
     };
     getAllPosts();
-  }, []);
+  }, [posts]);
 
   /**
    * sets token in local storage
@@ -50,7 +53,6 @@ export default function App() {
   useEffect(() => {
     const fetchUserData = async () => {
       const result = await myData(token);
-      console.log(result);
       setUserData(result);
     };
     fetchUserData();
@@ -75,7 +77,6 @@ export default function App() {
   const removePost = async (token, id) => {
     try {
       const result = await deletePost(token, id);
-      console.log(result);
       setPosts((previousPost) =>
         previousPost.filter((post) => post._id !== id)
       );
@@ -126,6 +127,7 @@ export default function App() {
               userData={userData}
               removePost={removePost}
               setPosts={setPosts}
+              setIsNewPost={setIsNewPost}
             />
           }
         />
@@ -135,7 +137,9 @@ export default function App() {
         />
         <Route
           path="/account/profile"
-          element={<Profile userData={userData} />}
+          element={
+            <Profile token={token} posts={posts} removePost={removePost} />
+          }
         />
       </Routes>
     </div>
