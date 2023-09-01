@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { addNewPost } from "../api";
 
-export default function NewPost({ token, setPosts }) {
+export default function NewPost({ token, setPosts, posts, setIsNewPost }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("");
   const [delivery, setDelivery] = useState(false);
 
-  console.log(title, description, price, location);
-  const submitHandler = async () => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     const postNewPost = await addNewPost(
       {
@@ -21,13 +20,13 @@ export default function NewPost({ token, setPosts }) {
       },
       token
     );
-    console.log(postNewPost, "New");
-    setPosts((previousPost) => [postNewPost, ...previousPost]);
+    setIsNewPost(true);
+    setPosts([...posts, postNewPost]);
   };
 
   return (
     <form onSubmit={submitHandler}>
-      <h1>new post form</h1>
+      <h1>Add Post</h1>
       <label>Title</label>
       <input
         type="text"
