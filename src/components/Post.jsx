@@ -2,7 +2,7 @@ export default function Post({ token, post, removePost }) {
   // console.log(username, userData);
   return (
     <div className="post">
-      <p className="user">{post?.author?.username}</p>
+      <p className="user">{post.author?.username}</p>
       <p>
         {" "}
         <b>Item: </b>

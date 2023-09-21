@@ -10,12 +10,12 @@ import { fetchAllPosts, myData, deletePost } from "./api";
 
 export default function App() {
   const [posts, setPosts] = useState([]);
-  const [isNewPost, setIsNewPost] = useState(false);
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || null
   );
   const [userData, setUserData] = useState([]);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   /**
@@ -25,16 +25,14 @@ export default function App() {
     const getAllPosts = async () => {
       try {
         const result = await fetchAllPosts(token);
-        if (isNewPost || !posts.length) {
-          setPosts(result);
-          setIsNewPost(false);
-        }
+        setPosts(result);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
     getAllPosts();
-  }, [posts]);
+  }, [posts.length]);
 
   /**
    * sets token in local storage
@@ -116,32 +114,43 @@ export default function App() {
           )}
         </div>
       </nav>
-      <Routes>
-        <Route path="/" element={<Home message={message} />} />
-        <Route
-          path="/posts"
-          element={
-            <Posts
-              posts={posts}
-              token={token}
-              userData={userData}
-              removePost={removePost}
-              setPosts={setPosts}
-              setIsNewPost={setIsNewPost}
+
+      {
+        /*displays loading spinner while waiting on products to fetch*/
+        loading ? (
+          <div className="loading">
+            <h1>Loading...</h1>
+          </div>
+        ) : (
+          <Routes>
+            <Route path="/" element={<Home message={message} />} />
+            <Route
+              path="/posts"
+              element={
+                <Posts
+                  posts={posts}
+                  token={token}
+                  userData={userData}
+                  removePost={removePost}
+                  setPosts={setPosts}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/account/:action"
-          element={<AccountForm setToken={setToken} setMessage={setMessage} />}
-        />
-        <Route
-          path="/account/profile"
-          element={
-            <Profile token={token} posts={posts} removePost={removePost} />
-          }
-        />
-      </Routes>
+            <Route
+              path="/account/:action"
+              element={
+                <AccountForm setToken={setToken} setMessage={setMessage} />
+              }
+            />
+            <Route
+              path="/account/profile"
+              element={
+                <Profile token={token} posts={posts} removePost={removePost} />
+              }
+            />
+          </Routes>
+        )
+      }
     </div>
   );
 }

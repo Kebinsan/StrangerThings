@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { addNewPost } from "../api";
 
-export default function NewPost({ token, setPosts, posts, setIsNewPost }) {
+export default function NewPost({ token, setPosts, posts }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -20,7 +20,6 @@ export default function NewPost({ token, setPosts, posts, setIsNewPost }) {
       },
       token
     );
-    setIsNewPost(true);
     setPosts([...posts, postNewPost]);
   };
 
