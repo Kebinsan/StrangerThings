@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { registerUser, loginUser } from "../api";
-import Home from "./Home";
 
 const AccountForm = ({ setToken, setMessage }) => {
   const [username, setUsername] = useState("");
