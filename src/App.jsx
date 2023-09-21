@@ -5,11 +5,13 @@ import AccountForm from "./components/AccountForm";
 import Posts from "./components/Posts";
 import Profile from "./components/Profile";
 import Home from "./components/Home";
+import PostPage from "./components/PostPage";
 //import api functions
 import { fetchAllPosts, myData, deletePost } from "./api";
 
 export default function App() {
   const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState(null);
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || null
   );
@@ -133,6 +135,7 @@ export default function App() {
                   userData={userData}
                   removePost={removePost}
                   setPosts={setPosts}
+                  setPost={setPost}
                 />
               }
             />
@@ -145,9 +148,15 @@ export default function App() {
             <Route
               path="/account/profile"
               element={
-                <Profile token={token} posts={posts} removePost={removePost} />
+                <Profile
+                  token={token}
+                  posts={posts}
+                  removePost={removePost}
+                  setPost={setPost}
+                />
               }
             />
+            <Route path="/posts/:id" element={<PostPage post={post} />} />
           </Routes>
         )
       }

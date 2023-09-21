@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import Post from "./Post";
 
-export default function Profile({ token, posts, removePost }) {
+export default function Profile({ token, posts, removePost, setPost }) {
   const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
     setUserPosts(posts.filter((post) => post.isAuthor === true));
     console.log(userPosts);
   }, [posts.length]);
+
   return (
     <div className="post-container">
       {/* loops through each post object and displays its data in Post.jsx
@@ -20,6 +21,7 @@ export default function Profile({ token, posts, removePost }) {
               token={token}
               post={post}
               removePost={removePost}
+              setPost={setPost}
             />
           );
         })

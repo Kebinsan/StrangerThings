@@ -117,8 +117,13 @@ export const myData = async (token) => {
     console.log(err);
   }
 };
-//Add additional API functions here
 
+/**
+ * DELETE POST
+ * @param {*} token
+ * @param {*} id
+ * @returns deleted post
+ */
 export const deletePost = async (token, id) => {
   try {
     const response = await fetch(`${BASE_URL}/posts/${id}`, {
@@ -127,6 +132,32 @@ export const deletePost = async (token, id) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+    });
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+/**
+ * SEND MESSAGE
+ * @param {*} token
+ * @returns message sent
+ */
+export const postMessage = async (token, id, message) => {
+  try {
+    const response = await fetch(`${BASE_URL}/posts/${id}/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        message: {
+          content: message,
+        },
+      }),
     });
     const result = await response.json();
     return result;
