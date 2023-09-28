@@ -31,7 +31,7 @@ nav {
   font-family: "proxima-nova", sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 1.5em;
+  font-size: 1.2em;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -140,4 +140,9 @@ nav {
 
 .search-font {
   font-size: 1.3em;
+}
+
+.post-page-container {
+  margin-left: 10%;
+  margin-right: 10%;
 }
