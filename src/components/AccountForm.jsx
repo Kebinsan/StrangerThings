@@ -15,8 +15,6 @@ const AccountForm = ({ setToken, setMessage }) => {
     const authFn = action === "register" ? registerUser : loginUser;
 
     const data = await authFn(username, password);
-    // console.log("data", data.data.token);
-    console.log(data);
     if (data.success) {
       setToken(data.data.token);
       setMessage(data.data.message);

@@ -156,7 +156,10 @@ export default function App() {
                 />
               }
             />
-            <Route path="/posts/:id" element={<PostPage post={post} />} />
+            <Route
+              path="/posts/:id"
+              element={<PostPage post={post} token={token} />}
+            />
           </Routes>
         )
       }

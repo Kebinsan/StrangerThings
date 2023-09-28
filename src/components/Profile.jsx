@@ -6,7 +6,6 @@ export default function Profile({ token, posts, removePost, setPost }) {
 
   useEffect(() => {
     setUserPosts(posts.filter((post) => post.isAuthor === true));
-    console.log(userPosts);
   }, [posts.length]);
 
   return (

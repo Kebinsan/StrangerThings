@@ -145,7 +145,7 @@ export const deletePost = async (token, id) => {
  * @param {*} token
  * @returns message sent
  */
-export const postMessage = async (token, id, message) => {
+export const postMessage = async (token, id, msg) => {
   try {
     const response = await fetch(`${BASE_URL}/posts/${id}/messages`, {
       method: "POST",
@@ -155,7 +155,7 @@ export const postMessage = async (token, id, message) => {
       },
       body: JSON.stringify({
         message: {
-          content: message,
+          content: msg,
         },
       }),
     });
